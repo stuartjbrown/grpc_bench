@@ -1,0 +1,38 @@
+syntax = "proto3";
+package main;
+
+// The lookup server definition
+service Server {
+  rpc LookupEntity(LookupRequest) returns (LookupResponse) {}
+  rpc SetEntity(SetRequest) returns (SetResponse) {}
+}
+
+// Entity contains some simple data about our entities
+message Entity {
+  int64 id = 1;
+  string name = 2;
+}
+
+// SetRequest message
+message SetRequest {
+  Entity entity = 1;
+}
+
+// SetResponse message includes entity along with success and error message if appropriate
+message SetResponse {
+  Entity entity = 1;
+  bool success = 2;
+  string reason = 3;
+}
+
+// The lookup request message
+message LookupRequest {
+  int64 id = 1;
+}
+
+// The lookup response message
+message LookupResponse {
+  Entity entity = 1;
+  bool found = 2;
+  string reason = 3;
+}
